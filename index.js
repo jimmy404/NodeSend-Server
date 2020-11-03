@@ -7,6 +7,8 @@ connectDB();
 
 const port = process.env.PORT || 4000;
 
+app.use('/api/users', require('./routes/usuarios'));
+
 app.listen(port), '0.0.0.0', () => {
     console.log(`The server is running on the port ${port}`);
 }
