@@ -1,8 +1,9 @@
 const express = require('express');
+const connectDB = require('./config/db');
 
 const app = express();
 
-console.log('Starting Node Send');
+connectDB();
 
 const port = process.env.PORT || 4000;
 
