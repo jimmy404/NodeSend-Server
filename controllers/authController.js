@@ -1,9 +1,16 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: 'variables.env' })
+require('dotenv').config({ path: 'variables.env' });
+const { validationResult } = require('express-validator')
 
 exports.authenticateUser = async (req, res, next) => {
+
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({ errors: errors.array()});
+    }
+
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
