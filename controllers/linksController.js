@@ -26,7 +26,7 @@ exports.newLink = async(req, res, next) => {
             const salt = await bcrypt.genSalt(10);
             link.password = await bcrypt.hash(password, salt);
         }
-        link.author = req.user.id;
+        link.author = req.user._id;
     }
 
     try {
