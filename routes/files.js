@@ -8,8 +8,4 @@ router.post('/',
     filesController.uploadFile
 );
 
-router.delete('/:id',
-    filesController.deleteFile
-);
-
 module.exports = router;

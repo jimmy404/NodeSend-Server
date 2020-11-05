@@ -47,13 +47,13 @@ exports.getLink = async(req, res, next) => {
     }
     res.json({file: link.name});
 
-    const { downloads } = link;
+    const { downloads, name } = link;
     if (downloads === 1) {
-        console.log('1 download left')
+        req.file = name;
+        await Links.findOneAndRemove(req.params.url);
         next()
     }else{
         link.downloads--;
         await link.save();
-        console.log('there are still downloads')
     }
 }
