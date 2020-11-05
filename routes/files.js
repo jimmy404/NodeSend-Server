@@ -4,6 +4,7 @@ const filesController = require('../controllers/filesController');
 const auth = require('../middleware/auth');
 
 router.post('/',
+    auth,
     filesController.uploadFile
 );
 
