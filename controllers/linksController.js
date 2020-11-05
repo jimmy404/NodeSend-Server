@@ -45,5 +45,15 @@ exports.getLink = async(req, res, next) => {
         res.status(404).json({msg: 'That link does not exist'});
         return next();
     }
-    res.json({file: link.name})
+    res.json({file: link.name});
+
+    const { downloads } = link;
+    if (downloads === 1) {
+        console.log('1 download left')
+        next()
+    }else{
+        link.downloads--;
+        await link.save();
+        console.log('there are still downloads')
+    }
 }
