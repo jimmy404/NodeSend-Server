@@ -12,9 +12,8 @@ module.exports = (req, res, next) => {
             req.user = user;
         } catch (error) {
             console.log(error);
-            console.log('jwt no valido')
+            console.log('jwt no valid')
         }
     }
-
     return next();
 }
