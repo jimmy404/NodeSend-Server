@@ -38,6 +38,15 @@ exports.newLink = async(req, res, next) => {
     }
 }
 
+exports.allLinks = async (req, res) => {
+    try {
+        const links = await Links.find({}).select('url - _id');
+        res.json({links});
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.getLink = async(req, res, next) => {
     const { url } = req.params;
     const link = await Links.findOne({ url });
@@ -46,6 +55,7 @@ exports.getLink = async(req, res, next) => {
         return next();
     }
     res.json({file: link.name});
+    return;
 
     const { downloads, name } = link;
     if (downloads === 1) {
