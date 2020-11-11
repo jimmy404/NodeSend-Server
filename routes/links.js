@@ -20,7 +20,6 @@ router.get('/',
 
 router.get('/:url',
     linksController.getLink,
-    filesController.deleteFile
 );
 
 module.exports = router;

@@ -55,15 +55,5 @@ exports.getLink = async(req, res, next) => {
         return next();
     }
     res.json({file: link.name});
-    return;
-
-    const { downloads, name } = link;
-    if (downloads === 1) {
-        req.file = name;
-        await Links.findOneAndRemove(req.params.url);
-        next()
-    }else{
-        link.downloads--;
-        await link.save();
-    }
+    next();
 }
