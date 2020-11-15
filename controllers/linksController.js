@@ -47,6 +47,30 @@ exports.allLinks = async (req, res) => {
     }
 }
 
+exports.havePassword = async (req, res, next) => {
+    const { url } = req.params;
+    const link = await Links.findOne({ url });
+    if (!link) {
+        res.status(404).json({msg: 'That link does not exist'});
+        return next();
+    }
+    if(link.password){
+        return res.json({ password: true, link: link.url });
+    }
+    next();
+}
+
+exports.checkPassword = async (req, res, next) => {
+    const {url} = req.params;
+    const {password} = req.body;
+    const link = await Links.findOne({url});
+    if(bcrypt.compareSync(password, link.password)) {
+        (next)
+    } else {
+        return res.status(401).json({msg: 'Incorrect password'})
+    }
+}
+
 exports.getLink = async(req, res, next) => {
     const { url } = req.params;
     const link = await Links.findOne({ url });
@@ -54,6 +78,6 @@ exports.getLink = async(req, res, next) => {
         res.status(404).json({msg: 'That link does not exist'});
         return next();
     }
-    res.json({file: link.name});
+    res.json({file: link.name, password: false});
     next();
 }
